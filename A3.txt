@@ -9,7 +9,7 @@ Requirements Definition:
  - Database of users (be able to hold at least 100 students, 10 instructors, 1 admin)
  - Database of courses 
 	o CRN, course name, time periods, instructor for course
- -Three users – student, instructor, admin
+ -Three users â€“ student, instructor, admin
 	o Student abilities: register classes, see available courses, see schedule
 	o Instructor abilities: see available courses, see course roster
 	o Admin abilities: see all data, edit courses/users/schedules
@@ -24,13 +24,16 @@ System and Software Design:
 		- System will be on either C++ or Python language
 		- System will also include a database from Wentworth
 		- System will be interacted through the input from user
+		- GUI:
+			-Will include functions listed in the requirements for each user
 Implementation and Unit Testing:
 	- System will have to run and tested thoroughly several times throughout the process to make sure all components work properly
 	- These components could include the functions of each user and the classes created from the database created through the user input
-	- System components will be tested using the user interface from either laptop or pc
+	- System components will be tested using system components
 	- Create code by steps and move onto the next component when one component is working properly
 	- Once functions of one user is satisfied, move on to the functions of a different user
 Integration and System Testing:
+	-Once the first test suceeds, proceed with the second test where the GUI can be used
 	- Combine all components of the system and test to see if all work simultaneously 
 	- All components should include the three different user and their functions as well as the databases
 	- See if the main functions work just as the requirements state
@@ -50,6 +53,7 @@ Incremental Development Model:
 		-This menu will have options for all three users and inside the option will be a sub menu for the users to choose the different functions
 		-setup of databases for the user information can begin
 	Intermediate Version:
+		-Create database and have it intergrtated into this version
 		-Add on functions for each user and make sure the functions work properly by testing it using a small test group
 		-Once functions work properly, place functions into each of the user classes and test to see if there are any issues
 		-System should work properly with all functions for each user
@@ -64,7 +68,7 @@ Requirements Specification:
 - Database of users (be able to hold at least 100 students, 10 instructors, 1 admin)
 - Database of courses 
 	o CRN, course name, time periods, instructor for course
-- Three users – student, instructor, admin
+- Three users â€“ student, instructor, admin
 	o Student abilities: register classes, see available courses, see schedule
 	o Instructor abilities: see available courses, see course roster
 	o Admin abilities: see all data, edit courses/users/schedules
@@ -90,6 +94,7 @@ Requirements Modification:
 System Design with Reuse:
 	- Once the modifications are made with the implemented code, work on making sure the system works together properly
 	- Makes any changes so that the requirements are made and test to see if modifications work
+	- The classes and the GUI can be used for all three different programs
 Development and Integration:
 	- Combine all components of the system and test to see if all work simultaneously 
 	- All components should include the three different user and their functions as well as the databases
