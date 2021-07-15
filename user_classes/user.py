@@ -4,6 +4,11 @@ class user:
          self.lastName = lastName
          self.ID = IDnumber
 
+    def searchCourseByCRN(self, CRN):
+        print(CRN + " found")
+    
+    def searchCourseByName(self, name):
+        print(name + " found")
 
 
 
