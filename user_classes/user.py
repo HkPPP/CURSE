@@ -9,8 +9,15 @@ class user:
     
     def searchCourseByName(self, name):
         print(name + " found")
+    
+    def searchCoursebyYear(self, year):
+        print(year + "found")
 
+    def searchCoursebySem(self, sem):
+        print(sem + "found")
 
+    def searchCoursebyDept(self, dept):
+        print(dept + "found")
 
 
 
