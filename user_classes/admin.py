@@ -15,12 +15,6 @@ class admin(user):
     def addNewCourse(self, courseName, CRNcode):
         print("Course " + courseName + " (" + CRNcode + ") added.") 
         
-    def searchCourseByCRN(self, CRN):
-        print(CRN + " found")
-    
-    def searchCourseByName(self, name):
-        print(name + " found")
-
     def removeCourseByCRN(self,CRN):
         print(CRN + " removed")
 
