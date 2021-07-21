@@ -1,6 +1,26 @@
-from user_classes.admin import admin
-from user_classes.instructor import instructor
-from user_classes.student import student
+from admin import admin
+from instructor import instructor
+from student import student
+from sql_class import sql_functions
+
+
+
+
+def main():
+    sql = sql_functions()
+
+    
+    query_result = sql.select_from_where('student', 'ID, NAME, SURNAME', 'ID', '10001')
+    print(query_result)
+    print(len(query_result))
+
+
+if __name__ == "__main__":
+    main()
+
+
+
+
 
 # def main():
 #     print("Testing admin class")
@@ -35,13 +55,3 @@ from user_classes.student import student
 #     stu.dropCourseByCRN("21412")
 #     stu.dropCourseByName("Music")
 #     stu.printSchedule()
-
-
-
-def main():
-    pass
-    
-
-
-if __name__ == "__main__":
-    main()

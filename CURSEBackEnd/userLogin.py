@@ -1,30 +1,19 @@
+from os import curdir
 import sqlite3
-
-# login = login() # ask for name and ID
-#                 # save user type, firstname, lastname, IDnumber
-
-# info = login.get_info() # return as an dictionary
-# if info["user_type"] == "admin":
-#     user = admin(info["firstname"], ...)
-
-# elif info["user_type"] == "student":
-#     user = student(info...)
-# else:
-#     user = instructor(info....)
+from sql_class import sql_functions
 
 class userLogin():
     def __init__(self) -> None:
-
-        self.cred = {
+        self.sql = sql_functions()
+        self.__cred = {
             'utype': 'Invalid',
             'lname': 'Invalid',
             'fname': 'Invalid',
             'ID': 'Invalid'
         }
-        print(self.cred)
 
     def getCredentials(self)->dict:
-        return self.cred
+        return self.__cred
 
     def selectUserType(self):
         utype_found = False
@@ -35,6 +24,7 @@ class userLogin():
         3 if you are a STUDENT
         quit to exit program"""
         print(msg)
+
         while(utype_found is False):
             choice = input("Enter here: ")
             confirmed = input("Please confirm your answer\n 1 for YES, 2 for NO\n=> ")
@@ -73,15 +63,16 @@ class userLogin():
 
 
     def checkUser(self) -> bool:
-        # Connect to database. Return False if fails
-        try:    
-            database = sqlite3.connect("schooldatabase.db") 
-        except Exception:
-            print("Cannot find database")
+        if self.__cred['utype'] == 'Invalid':
             return False
+        else:
+            query_result = self.sql.select_from_where(self.__cred['utype'], 'ID, SURNAME, NAME', 'ID', self.__cred['ID'])
+            if len(query_result == 0):
+                return False
+            else:
+                if self.__cred['utype'] == query_result[0][0] and self.__cred['lname'] == query_result[0][1]:
+                    self.__cred['fname'] = query_result[0][3]
+                    return True
+                else:
+                    return False
 
-        try:
-            cursor = database.cursor() 
-        finally:
-            database.close()
-        
