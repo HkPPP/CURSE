@@ -1,6 +1,6 @@
-from user_classes.admin import admin
-from user_classes.instructor import instructor
-from user_classes.student import student
+from admin import admin
+from instructor import instructor
+from student import student
 from userLogin import userLogin
 
 def main():
@@ -20,7 +20,11 @@ def main():
         print("A problem has occur. Cannot create user...")
 
         main()      # Restart the program
+    
+    if logIn.checkUser() == False:
+        print("Wrong last name or ID or wrong user type")
+        main()
 
-
+    
 if __name__ == "__main__":
     main()
