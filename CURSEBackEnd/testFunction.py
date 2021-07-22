@@ -11,7 +11,7 @@ def main():
 
     
     query_result = sql.select_from_where('student', 'ID, NAME, SURNAME', 'ID', '10001')
-    print(query_result)
+    print(query_result[0][2])
     print(len(query_result))
 
 
