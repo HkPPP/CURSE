@@ -1,4 +1,5 @@
-# Written by Hank
+#Admin Class was done by Hank Pham
+
 
 from user import user
 
