@@ -1,5 +1,3 @@
-from os import curdir
-import sqlite3
 from sql_class import sql_functions
 
 class userLogin():

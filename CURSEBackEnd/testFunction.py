@@ -1,3 +1,4 @@
+from user import user
 from admin import admin
 from instructor import instructor
 from student import student
@@ -7,12 +8,23 @@ from sql_class import sql_functions
 
 
 def main():
-    sql = sql_functions()
+    u = student("Hank", "Pham","13212")
+
+    # if u.registerCourseByCRN("'00030001'") == True:
+    #     print("Registered")
+    # else:
+    #     print("Not Reg")
+
+    c = u.getSchedule()
+
+    print(c)
 
     
-    query_result = sql.select_from_where('student', 'ID, NAME, SURNAME', 'ID', '10001')
-    print(query_result)
-    print(len(query_result))
+
+
+
+
+
 
 
 if __name__ == "__main__":
