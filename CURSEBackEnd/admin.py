@@ -1,14 +1,18 @@
 #Admin Class was done by Hank Pham
 
+
 from user import user
-from sql_class import sql_functions
 
 class admin(user):
     def __init__(self, firstName, lastName, IDnumber):
         super().__init__(firstName, lastName, IDnumber)
         
         
+        
+    # Incomplete function
     def addNewCourseByInput(self):
+        """Prompt user inputs to add new course"""
+
         print("Enter the course info to add new course:")
         print("Course name:")
         courseName = input()
@@ -17,24 +21,30 @@ class admin(user):
         print(courseName + " (" + CRNcode + ") has been successfully added.")
 
     def addNewCourse(self, courseName,  department = "TBA", instructor = "TBA", time = 0, semester = "TBA", year = 0, credits = 0):
+        """Add new course to database"""
+
         self.lastID = 30001 + int(self.sql.get_last_rowID())
         self.CRN = "000" + str(self.lastID)
         self.value = f"{self.CRN}, {courseName}, {department}, {instructor}, {time}, {semester}, {year}, {credits}"
         self.sql.insert_into_table_values("COURSE", self.value)
 
 
+
+
     def removeCourseByCRN(self,CRN):
+        """Remove course by CRN in COURSE table"""
+
         self.sql.delete_from_table_where("COURSE", "CRN", CRN) 
 
     def removeCourseByName(self,name):
+        """Remove course by name in COURSE table"""
+
         self.sql.delete_from_table_where("COURSE", "CRN", name) 
 
-    def printAllCourses(self):
-        courses = self.sql.select_from("COURSE", "*")
-        for course in courses:
-            print(course)
         
-    def addUser(self, firstName, lastName, graduation, major = "TBA"):
+    def addNewStudent(self, firstName, lastName, graduation, major = "TBA"):
+        """Add new student to STUDENT table"""
+
         self.lastID = 10001 + int(self.sql.get_last_rowID()) 
         self.studentID = str(self.lastID)
         self.email = ""
@@ -42,20 +52,30 @@ class admin(user):
         self.sql.insert_into_table_values("STUDENT", self.value)
         
 
-    def removeUserByID(self, id):
+    # TODO below
+
+    def removeStudentByID(self, id):
+        """"Remove a student from STUDENT, ROSTER tables by matching ID """
+
         print(id + " removed")
 
-    def addStudentToCourse(self, id, CRNcode):  
+    def removeProfessorByID(self, id):
+        """Remove a professor from PROFESSOR and COURSE table"""
+
+        print(id + " removed")
+
+    def addStudentToCourse(self, id, CRNcode): 
+        """Add Student ID along with Course ID to ROSTER table"""
+
         print("Student " + id + " added to course " + CRNcode)
 
     def removeStudentFromCourse(self, id, CRNcode):
+        """Remove the Student ID and CRN code from the Roster table"""
+
         print("Student " + id + " removed from course " + CRNcode)
 
-    def addStudentToRoster(self, id, roster):
-        print("Student " + id + " added to roster " + roster)
-
-    def removeStudentFromRoster(self, id, roster):
-        print("Student " + id + " removed from roster " + roster)
-
-    def printAllUser(self):
+    def getAllUser(self):
+        """Return a list of all user"""
+        
         print("Print all users")
+

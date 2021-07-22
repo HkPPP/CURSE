@@ -1,3 +1,6 @@
+# Written by Hank
+
+from user import user
 from sql_class import sql_functions
 
 class userLogin():
@@ -11,17 +14,19 @@ class userLogin():
         }
 
     def getCredentials(self)->dict:
+        """Return credentials as a Dict"""
         return self.__cred
 
 
-    def logIn(self, utype, ID, last_name):
-        
-        query_result = self.sql.select_from_where(utype, 'ID, SURNAME, NAME', 'ID', ID)
+    def logIn(self, utype, ID, email):
+        """Fill out credentials and return True if ID and last name are found in DB. Otherwise, return False"""
+
+        query_result = self.sql.select_from_where(utype, 'ID, SURNAME, NAME, EMAIL', 'ID', ID)
 
         if len(query_result == 0):
             return False
         else:
-            if  last_name == query_result[0][1]:
+            if  email == query_result[0][3]:
                 self.__cred['utype'] = str(utype)
                 self.__cred['ID'] = query_result[0][0]
                 self.__cred['lname'] = query_result[0][1]
@@ -30,10 +35,15 @@ class userLogin():
             else:
                 return False
 
+    def logOut(self, u):
+        """Delete object if object is a User type"""
 
-
+        if isinstance(u, user):
+            del u
 
     def selectUserType_Input(self):
+        """Manually fill in user type with terminal prompts"""
+
         utype_found = False
         choice = ""
         msg = """Please enter:
@@ -66,6 +76,8 @@ class userLogin():
             self.selectUserType()
 
     def credentials_Input(self):
+        """Manually fill in last name and ID with terminal prompts"""
+
         user_found = False
         while(user_found is False):
             self.cred['lname'] = input("Please enter your LAST name: ")
@@ -81,6 +93,8 @@ class userLogin():
 
 
     def checkUser_Input(self) -> bool:
+        """REQUIRED PREFILLED ID AND UTYPE (Call 'selectUserType_Input' and 'credentials_Input' first). Return True if last name and ID found. Otherwise, return False"""
+
         if self.__cred['utype'] == 'Invalid':
             return False
         else:
