@@ -5,7 +5,7 @@ import sqlite3
 class sql_functions:
     """This class is used for executing SQL queries using Python."""
 
-    def __init__(self, path="schooldatabase.db") -> None:
+    def __init__(self, path="CURSEBackEnd/schooldatabase.db") -> None:
         """Connect to database and create a cursor."""
 
         self.__database = path
@@ -84,8 +84,18 @@ class sql_functions:
         self.result = self.cur.fetchall()
         return self.result
 
+    def cross_join_table(self, table1, table2):
+        """SELECT FROM [TABLE1] CROSS JOIN [TABLE2] """
+        self.command = f"SELECT from {table1} CROSS JOIN {table2}"
+        self.exec_and_commit(self.command)
 
 
+    def select_from_where_in(self, table1, row1, column1, table2, row2, column2, condition):
+        """SELECT [row1] FROM [table1] WHERE [column1] IN (SELECT [row2] FROM [table2] WHERE [column2] = [condition])"""
+        self.command = f"SELECT {row1} FROM {table1} WHERE {column1} IN (SELECT {row2} FROM {table2} WHERE {column2} = {condition})"
+        self.cur.execute(self.command)
+        self.result = self.cur.fetchall()
+        return self.result
 
 
 
