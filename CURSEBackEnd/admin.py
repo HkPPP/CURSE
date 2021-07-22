@@ -1,3 +1,5 @@
+#Admin Class was done by Hank Pham
+
 from user import user
 from sql_class import sql_functions
 
@@ -5,7 +7,6 @@ class admin(user):
     def __init__(self, firstName, lastName, IDnumber):
         super().__init__(firstName, lastName, IDnumber)
         
-        self.sql = sql_functions()
         
     def addNewCourseByInput(self):
         print("Enter the course info to add new course:")

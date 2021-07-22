@@ -1,6 +1,6 @@
+#Sql class done by Hank Pham(80%) and Kevin Huang(20%)
+
 import sqlite3
-
-
 
 class sql_functions:
     """This class is used for executing SQL queries using Python."""
@@ -8,9 +8,9 @@ class sql_functions:
     def __init__(self, path="CURSEBackEnd/schooldatabase.db") -> None:
         """Connect to database and create a cursor."""
 
-        self.__database = path
+        self.__database = path 
         self.con = sqlite3.connect(self.__database) 
-        self.cur = self.con.cursor()
+        self.cur = self.con.cursor() 
 
     def __del__(self):
         """Delete cursor and close database when destructed."""

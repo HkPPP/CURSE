@@ -1,3 +1,5 @@
+#Student Class was done by Kevin Huang(50%) and Hank Pham(50%)
+
 from user import user
 
 class student(user):
@@ -5,6 +7,7 @@ class student(user):
         super().__init__(firstName, lastName, IDnumber)
         
     def registerCourseByCRN(self, CRN):
+        """adds student ID to the ROSTER """
         if len(self.searchCourseByCRN(CRN)) !=0:
             self.value = f"{self.ID}, {CRN}"
             self.sql.insert_into_table_values("ROSTER", self.value)
