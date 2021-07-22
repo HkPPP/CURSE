@@ -17,7 +17,7 @@ class userLogin():
 
 
     def logIn(self, utype, ID, last_name):
-        
+
         query_result = self.sql.select_from_where(utype, 'ID, SURNAME, NAME', 'ID', ID)
 
         if len(query_result == 0):
@@ -32,6 +32,9 @@ class userLogin():
             else:
                 return False
 
+    def logOut(self, user):
+        if user:
+            del user
 
 
 
