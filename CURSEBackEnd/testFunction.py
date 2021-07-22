@@ -8,16 +8,22 @@ from sql_class import sql_functions
 
 
 def main():
-    u = student("Hank", "Pham","13212")
+    
+    # s = sql_functions()
+    # value = "10004, '00030001'"
+    # s.insert_into_table_values("ROSTER", value)
+    # value = "10005, '00030001'"
+    # s.insert_into_table_values("ROSTER", value)
+    # value = "10006, '00030001'"
+    # s.insert_into_table_values("ROSTER", value)
 
-    # if u.registerCourseByCRN("'00030001'") == True:
-    #     print("Registered")
-    # else:
-    #     print("Not Reg")
 
-    c = u.getSchedule()
 
-    print(c)
+    u = instructor("Hank", "Pham","13212")
+    c = u.getRosterFromACourse("'00030001'")
+
+    for k in c:
+        print(k)
 
     
 
