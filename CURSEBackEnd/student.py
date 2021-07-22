@@ -4,17 +4,20 @@ class student(user):
     def __init__(self, firstName, lastName, IDnumber):
         super().__init__(firstName, lastName, IDnumber)
         
-    def registerCourseByCRN(self,CRN):
-        print(CRN + " registered")
+    def registerCourseByCRN(self, CRN):
+        if len(self.searchCourseByCRN(CRN)) !=0:
+            self.value = f"{self.ID}, {CRN}"
+            self.sql.insert_into_table_values("ROSTER", self.value)
+            return True
+        else:
+            return False
+        
 
-    def registerCourseByName(self, name):
-        print(name + " registered")
+    def dropCourseByCRN(self, CRN):
+        self.value = f"{CRN} AND StudentID = {self.ID}"
+        self.sql.delete_from_table_where("ROSTER", "CRN", self.value)
 
-    def dropCourseByCRN(self,CRN):
-        print(CRN + " dropped")
-
-    def dropCourseByName(self, name):
-        print(name + " registered")
-
-    def printSchedule(self):
-        print("Print schedule")
+    def getSchedule(self):
+        self.courses = self.sql.select_from_where_in("COURSE", "*", "CRN", "ROSTER", "CRN", "StudentID", self.ID)
+        return self.courses
+        
