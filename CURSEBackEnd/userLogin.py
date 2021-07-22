@@ -1,5 +1,4 @@
-from os import curdir
-import sqlite3
+from user import user
 from sql_class import sql_functions
 
 class userLogin():
@@ -16,14 +15,14 @@ class userLogin():
         return self.__cred
 
 
-    def logIn(self, utype, ID, last_name):
+    def logIn(self, utype, ID, email):
 
         query_result = self.sql.select_from_where(utype, 'ID, SURNAME, NAME', 'ID', ID)
 
         if len(query_result == 0):
             return False
         else:
-            if  last_name == query_result[0][1]:
+            if  email == query_result[0][1]:
                 self.__cred['utype'] = str(utype)
                 self.__cred['ID'] = query_result[0][0]
                 self.__cred['lname'] = query_result[0][1]
@@ -32,9 +31,10 @@ class userLogin():
             else:
                 return False
 
-    def logOut(self, user):
-        if user:
-            del user
+    def logOut(self, u):
+        if isinstance(u, user):
+            del u
+        
 
 
 
