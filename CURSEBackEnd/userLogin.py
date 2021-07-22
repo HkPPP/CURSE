@@ -15,7 +15,27 @@ class userLogin():
     def getCredentials(self)->dict:
         return self.__cred
 
-    def selectUserType(self):
+
+    def logIn(self, utype, ID, last_name):
+        
+        query_result = self.sql.select_from_where(utype, 'ID, SURNAME, NAME', 'ID', ID)
+
+        if len(query_result == 0):
+            return False
+        else:
+            if  last_name == query_result[0][1]:
+                self.__cred['utype'] = str(utype)
+                self.__cred['ID'] = query_result[0][0]
+                self.__cred['lname'] = query_result[0][1]
+                self.__cred['fname'] = query_result[0][2]
+                return True
+            else:
+                return False
+
+
+
+
+    def selectUserType_Input(self):
         utype_found = False
         choice = ""
         msg = """Please enter:
@@ -47,7 +67,7 @@ class userLogin():
             print("\n\n******************************************")
             self.selectUserType()
 
-    def credentialsInput(self):
+    def credentials_Input(self):
         user_found = False
         while(user_found is False):
             self.cred['lname'] = input("Please enter your LAST name: ")
@@ -62,7 +82,7 @@ class userLogin():
                 continue
 
 
-    def checkUser(self) -> bool:
+    def checkUser_Input(self) -> bool:
         if self.__cred['utype'] == 'Invalid':
             return False
         else:

@@ -19,7 +19,7 @@ class admin(user):
         self.lastID = 30001 + int(self.sql.get_last_rowID())
         self.CRN = "000" + str(self.lastID)
         self.value = f"{self.CRN}, {courseName}, {department}, {instructor}, {time}, {semester}, {year}, {credits}"
-        self.sql.insert_into_table_values("STUDENT", self.value)
+        self.sql.insert_into_table_values("COURSE", self.value)
 
 
     def removeCourseByCRN(self,CRN):
