@@ -1,8 +1,12 @@
+from sql_class import sql_functions
+
 class user:
     def __init__(self, firstName, lastName, IDnumber):
          self.firstName = firstName
          self.lastName = lastName
          self.ID = IDnumber
+
+         self.sql = sql_functions()
 
     def searchCourseByCRN(self, CRN):
         print(CRN + " found")

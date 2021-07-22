@@ -1,3 +1,5 @@
+# Written by Hank
+
 from user import user
 from sql_class import sql_functions
 
@@ -34,9 +36,6 @@ class userLogin():
     def logOut(self, u):
         if isinstance(u, user):
             del u
-        
-
-
 
     def selectUserType_Input(self):
         utype_found = False
