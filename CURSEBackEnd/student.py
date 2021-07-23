@@ -10,6 +10,8 @@ class student(user):
     def registerCourseByCRN(self, CRN):
         """adds student ID and CRN to the ROSTER table """
 
+        # Need to check duplicate courses in ROSTER before registering
+
         if len(self.searchCourseByCRN(CRN)) !=0:
             self.value = f"{self.ID}, {CRN}"
             self.sql.insert_into_table_values("ROSTER", self.value)

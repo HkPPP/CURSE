@@ -5,7 +5,7 @@ import sqlite3
 class sql_functions:
     """This class is used for executing SQL queries using Python."""
 
-    def __init__(self, path="CURSEBackEnd/schooldatabase.db") -> None:
+    def __init__(self, path="schooldatabase.db") -> None:
         """Connect to database and create a cursor."""
 
         self.__database = path 
@@ -14,7 +14,6 @@ class sql_functions:
 
     def __del__(self):
         """Delete cursor and close database when destructed."""
-
         if self.cur:
             self.cur.close()
         if self.con:
