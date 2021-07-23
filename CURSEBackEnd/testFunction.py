@@ -3,6 +3,7 @@ from admin import admin
 from instructor import instructor
 from student import student
 from sql_class import sql_functions
+from userLogin import userLogin
 
 
 
@@ -19,11 +20,14 @@ def main():
 
 
 
-    u = instructor("Hank", "Pham","13212")
-    c = u.getRosterFromACourse("'00030001'")
+    # u = instructor("Hank", "Pham","13212")
+    # c = u.getRosterFromACourse("'00030001'")
 
-    for k in c:
-        print(k)
+    # for k in c:
+    #     print(k)
+
+
+    p = userLogin()
 
     
 

@@ -22,8 +22,8 @@ class userLogin():
         """Fill out credentials and return True if ID and last name are found in DB. Otherwise, return False"""
 
         query_result = self.sql.select_from_where(utype, 'ID, SURNAME, NAME, EMAIL', 'ID', ID)
-
-        if len(query_result == 0):
+        
+        if len(query_result) == 0:
             return False
         else:
             if  email == query_result[0][3]:
