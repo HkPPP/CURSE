@@ -1,6 +1,11 @@
 #Instructor class done by Kevin Huang(50%) and Hank Pham(50%)
 
-from user import user
+try:
+    from user import user
+except ModuleNotFoundError:
+    import sys
+    sys.path.append(".")
+    from CURSEBackEnd.user import user
 
 class instructor(user):
     def __init__(self, firstName, lastName, IDnumber):
