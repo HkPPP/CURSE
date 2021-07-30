@@ -1,7 +1,13 @@
 # Written by Hank
+try:
+    from user import user
+    from sql_class import sql_functions
+except ModuleNotFoundError:
+    import sys
+    sys.path.append(".")
+    from CURSEBackEnd.user import user
+    from CURSEBackEnd.sql_class import sql_functions
 
-from user import user
-from sql_class import sql_functions
 
 class userLogin():
     def __init__(self) -> None:

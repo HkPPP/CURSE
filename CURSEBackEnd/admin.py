@@ -1,7 +1,11 @@
 #Admin Class was done by Hank Pham
 
-
-from user import user
+try:
+    from user import user
+except ModuleNotFoundError:
+    import sys
+    sys.path.append(".")
+    from CURSEBackEnd.user import user
 
 class admin(user):
     def __init__(self, firstName, lastName, IDnumber):

@@ -1,6 +1,10 @@
 #User Class was done by Kevin Huang
-
-from sql_class import sql_functions
+try:
+    from sql_class import sql_functions
+except ModuleNotFoundError:
+    import sys
+    sys.path.append(".")
+    from CURSEBackEnd.sql_class import sql_functions
 
 class user:
     
