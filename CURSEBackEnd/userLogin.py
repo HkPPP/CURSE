@@ -23,10 +23,11 @@ class userLogin():
         """Return credentials as a Dict"""
         return self.__cred
 
-
+###################################
+    # For GUI
     def logIn(self, utype, ID, email):
         """Fill out credentials and return True if ID and last name are found in DB. Otherwise, return False"""
-
+        ID = self.single_quote_around_str(ID)
         query_result = self.sql.select_from_where(utype, 'ID, SURNAME, NAME, EMAIL', 'ID', ID)
         
         if len(query_result) == 0:
@@ -46,7 +47,15 @@ class userLogin():
 
         if isinstance(u, user):
             del u
+###################################
 
+    @staticmethod
+    def single_quote_around_str(string):
+        return f"\'{string}\'"
+
+
+###################################
+    # Only for terminal
     def selectUserType_Input(self):
         """Manually fill in user type with terminal prompts"""
 
@@ -113,4 +122,5 @@ class userLogin():
                     return True
                 else:
                     return False
+    ###################################
 
