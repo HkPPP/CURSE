@@ -11,48 +11,32 @@ class admin(user):
     def __init__(self, firstName, lastName, IDnumber):
         super().__init__(firstName, lastName, IDnumber)
         
-        
-        
-    # Incomplete function
-    def addNewCourseByInput(self):
-        """Prompt user inputs to add new course"""
 
-        print("Enter the course info to add new course:")
-        print("Course name:")
-        courseName = input()
-        print("CRN code:")
-        CRNcode = input()
-        print(courseName + " (" + CRNcode + ") has been successfully added.")
-
-    def addNewCourse(self, courseName,  department = "TBA", instructor = "TBA", time = 0, semester = "TBA", year = 0, credits = 0):
+    def addNewCourse(self, courseName,  department = "TBA", instructor = "TBA", time = 0, day = "TBA", semester = "TBA", year = 0, credits = 0):
         """Add new course to database"""
 
-        self.lastID = 30001 + int(self.sql.get_last_rowID())
+        self.lastID = 30001 + int(self.sql.get_last_rowID("COURSE"))
         self.CRN = "000" + str(self.lastID)
-        self.value = f"{self.CRN}, {courseName}, {department}, {instructor}, {time}, {semester}, {year}, {credits}"
+        self.value = f"'{self.CRN}', '{courseName}', '{department}', '{instructor}', {time}, '{semester}', '{day}', {year}, {credits}"
         self.sql.insert_into_table_values("COURSE", self.value)
-
-
-
 
     def removeCourseByCRN(self,CRN):
         """Remove course by CRN in COURSE table"""
-
+        CRN = f"'{CRN}'"
         self.sql.delete_from_table_where("COURSE", "CRN", CRN) 
 
     def removeCourseByName(self,name):
         """Remove course by name in COURSE table"""
+        name = f"'{name}'"
+        self.sql.delete_from_table_where("COURSE", "TITLE", name) 
 
-        self.sql.delete_from_table_where("COURSE", "CRN", name) 
-
-        
     def addNewStudent(self, firstName, lastName, graduation, major = "TBA"):
         """Add new student to STUDENT table"""
 
         self.lastID = 10001 + int(self.sql.get_last_rowID()) 
         self.studentID = str(self.lastID)
         self.email = ""
-        self.value = f"{self.studentID}, {firstName}, {lastName}, {graduation}, {major}, {self.email}"
+        self.value = f"{self.studentID}, '{firstName}', '{lastName}', {graduation}, '{major}', '{self.email}'"
         self.sql.insert_into_table_values("STUDENT", self.value)
         
 
@@ -83,3 +67,13 @@ class admin(user):
         
         print("Print all users")
 
+    # Incomplete function
+    def addNewCourseByInput(self):
+        """Prompt user inputs to add new course"""
+
+        print("Enter the course info to add new course:")
+        print("Course name:")
+        courseName = input()
+        print("CRN code:")
+        CRNcode = input()
+        print(courseName + " (" + CRNcode + ") has been successfully added.")

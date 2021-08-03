@@ -73,7 +73,7 @@ class sql_functions:
         self.command = f"SELECT MAX(ROWID) from {table};"
         self.cur.execute(self.command)
         self.result = self.cur.fetchall()
-        return self.result[0]
+        return self.result[0][0]
 
     def get_partial_matches(self, table, row, column, condition):
         """Return an array of rows that contain partial matches of a word."""

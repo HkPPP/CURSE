@@ -14,11 +14,16 @@ class student(user):
         
     def registerCourseByCRN(self, CRN):
         """adds student ID and CRN to the ROSTER table """
-
-        # Need to check duplicate courses in ROSTER before registering
-
+        current_courses = self.getSchedule()
+        # Check for duplicate courses
+        print(current_courses)
+        if len(current_courses) != 0 and CRN in current_courses[0]:
+            return False
+        
+        
+        # Check if the course exists
         if len(self.searchCourseByCRN(CRN)) !=0:
-            self.value = f"{self.ID}, {CRN}"
+            self.value = f"{self.ID}, \'{CRN}\'"
             self.sql.insert_into_table_values("ROSTER", self.value)
             return True
         else:
@@ -27,7 +32,7 @@ class student(user):
     def dropCourseByCRN(self, CRN):
         """Deletes student ID and CRN from ROSTER table"""
 
-        self.value = f"{CRN} AND StudentID = {self.ID}"
+        self.value = f"\'{CRN}\' AND StudentID = {self.ID}"
         self.sql.delete_from_table_where("ROSTER", "CRN", self.value)
 
     def getSchedule(self):
@@ -35,4 +40,4 @@ class student(user):
         
         self.courses = self.sql.select_from_where_in("COURSE", "*", "CRN", "ROSTER", "CRN", "StudentID", self.ID)
         return self.courses
-        
+
