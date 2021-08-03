@@ -13,10 +13,13 @@ class instructor(user):
         
     def getSchedule(self):
         """Get schedule for instructor"""
-        print("Print schedule")
+        courses = self.sql.select_from_where("COURSE", "*", "INSTRUCTOR", self.ID)
+        return courses
+        
 
     def getRosterFromACourse(self, CRN):
         """Get Roster from a course"""
-        self.roster = self.sql.select_from_where_in("STUDENT", "*", "ID", "ROSTER", "StudentID", "CRN", CRN)
-        return self.roster
-        
+        CRN = f"'{CRN}'"
+        roster = self.sql.select_from_where_in("STUDENT", "*", "ID", "ROSTER", "StudentID", "CRN", CRN)
+        return roster
+
