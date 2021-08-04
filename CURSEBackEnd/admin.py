@@ -15,10 +15,10 @@ class admin(user):
     def addNewCourse(self, courseName,  department = "TBA", instructor = "TBA", time = 0, day = "TBA", semester = "TBA", year = 0, credits = 0):
         """Add new course to database"""
 
-        self.lastID = 30001 + int(self.sql.get_last_rowID("COURSE"))
-        self.CRN = "000" + str(self.lastID)
-        self.value = f"'{self.CRN}', '{courseName}', '{department}', '{instructor}', {time}, '{semester}', '{day}', {year}, {credits}"
-        self.sql.insert_into_table_values("COURSE", self.value)
+        lastID = 30001 + int(self.sql.get_last_rowID("COURSE"))
+        CRN = "000" + str(lastID)
+        value = f"'{CRN}', '{courseName}', '{department}', '{instructor}', {time}, '{semester}', '{day}', {year}, {credits}"
+        self.sql.insert_into_table_values("COURSE", value)
 
     def removeCourseByCRN(self,CRN):
         """Remove course by CRN in COURSE table"""
@@ -33,11 +33,11 @@ class admin(user):
     def addNewStudent(self, firstName, lastName, graduation, major = "TBA"):
         """Add new student to STUDENT table"""
 
-        self.lastID = 10001 + int(self.sql.get_last_rowID()) 
-        self.studentID = str(self.lastID)
-        self.email = ""
-        self.value = f"{self.studentID}, '{firstName}', '{lastName}', {graduation}, '{major}', '{self.email}'"
-        self.sql.insert_into_table_values("STUDENT", self.value)
+        lastID = 10001 + int(self.sql.get_last_rowID()) 
+        studentID = str(lastID)
+        email = ""
+        value = f"{studentID}, '{firstName}', '{lastName}', {graduation}, '{major}', '{email}'"
+        self.sql.insert_into_table_values("STUDENT", value)
         
 
     # TODO below
