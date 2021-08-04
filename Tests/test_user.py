@@ -15,7 +15,6 @@ def test_searchAllCourse(user_class):
     courses = user_class.searchAllCourse()
     assert len(courses) == 5
 
-
 def test_searchCourseByCRN(user_class):
     # Test correct input
     courses = user_class.searchCourseByCRN("00030001")
