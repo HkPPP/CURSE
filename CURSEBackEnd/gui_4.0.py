@@ -523,8 +523,7 @@ class MainApp:
             #add student function
             def add_Stud(id, name, surname, grad, major, email, ):
                 addStud.destroy()
-
-            
+         
             #add student window
             def add_stud():
 
@@ -835,7 +834,6 @@ class MainApp:
         self.userP = Tk()
         user_layout(self.userP)
         
-
     def main_menu(self) -> None:
         # main Window dimensions
         ####################################################
@@ -994,20 +992,109 @@ class MainApp:
             self.admin.withdraw()
             self.user_page(self.admin)
 
-        def roster_button():
-            pass
-
         def logout_button():
             self.login_class.logOut(self.user)
             self.admin.destroy()
             self.main.deiconify()
 
+        def add_course_btn():
+            
+            def add_course_function(crn, title, dept, inst, time, day, sem, year, cred):
+                addCourse.destroy()
+    
+            addCourse = Toplevel(self.admin)
+            addCourse.title("Add Course")
+            addCourse.configure(bg="#D3D3D3")
+            app_width = 850
+            app_height = 400
+            screen_width = addCourse.winfo_screenwidth()
+            screen_height = addCourse.winfo_screenheight()
+            x = (screen_width / 2) - (app_width / 2)
+            y = (screen_height / 2 ) - (app_height / 2)
+            addCourse.geometry(f'{app_width}x{app_height}+{int(x)}+{int(y)}')
+
+            addCourse_frame = LabelFrame(addCourse, text="Course Information", font="calibri 12 ", bg="#D3D3D3")
+            addCourse_frame.pack(fill="x", expand="yes", padx=20, side='top')
+
+            crn_txt = Label(addCourse_frame, text="CRN", font="calibri 12 ", bg="#D3D3D3")
+            crn_txt.grid(row=0, column=0, padx=5, pady=5)
+            CRN_entry1 = Entry(addCourse_frame, font="calibri")
+            CRN_entry1.grid(row=0, column=1, padx=5, pady=5)
+
+            title_txt = Label(addCourse_frame, text="Title", font="calibri 12 ", bg="#D3D3D3")
+            title_txt.grid(row=1, column=0, padx=5, pady=5)
+            title_entry1 = Entry(addCourse_frame, font="calibri")
+            title_entry1.grid(row=1, column=1, padx=5, pady=5)
+
+            dept_txt = Label(addCourse_frame, text="Department", font="calibri 12 ", bg="#D3D3D3")
+            dept_txt.grid(row=2, column=0, padx=5, pady=5)
+            dept_entry1 = Entry(addCourse_frame, font="calibri")
+            dept_entry1.grid(row=2, column=1, padx=5, pady=5)
+
+            inst_txt = Label(addCourse_frame, text="Instructor", font="calibri 12 ", bg="#D3D3D3")
+            inst_txt.grid(row=0, column=2, padx=5, pady=5)
+            inst_entry1 = Entry(addCourse_frame, font="calibri")
+            inst_entry1.grid(row=0, column=3, padx=5, pady=5)
+
+            time_txt = Label(addCourse_frame, text="Time", font="calibri 12 ", bg="#D3D3D3")
+            time_txt.grid(row=1, column=2, padx=5, pady=5)
+            time_entry1 = Entry(addCourse_frame, font="calibri")
+            time_entry1.grid(row=1, column=3, padx=5, pady=5)
+
+            day_txt = Label(addCourse_frame, text="Day(s)", font="calibri 12 ", bg="#D3D3D3")
+            day_txt.grid(row=2, column=2, padx=5, pady=5)
+            day_entry1 = Entry(addCourse_frame, font="calibri")
+            day_entry1.grid(row=2, column=3, padx=5, pady=5)
+
+            sem_txt = Label(addCourse_frame, text="Semester", font="calibri 12 ", bg="#D3D3D3")
+            sem_txt.grid(row=0, column=4, padx=5, pady=5)
+            sem_entry1 = Entry(addCourse_frame, font="calibri")
+            sem_entry1.grid(row=0, column=5, padx=5, pady=5)
+
+            year_txt = Label(addCourse_frame, text="year", font="calibri 12 ", bg="#D3D3D3")
+            year_txt.grid(row=1, column=4, padx=5, pady=5)
+            year_entry1 = Entry(addCourse_frame, font="calibri")
+            year_entry1.grid(row=1, column=5, padx=5, pady=5)
+
+            cred_txt = Label(addCourse_frame, text="Credits", font="calibri 12 ", bg="#D3D3D3")
+            cred_txt.grid(row=2, column=4, padx=5, pady=5)
+            cred_entry1 = Entry(addCourse_frame, font="calibri")
+            cred_entry1.grid(row=2, column=5, padx=5, pady=5)
+
+            add_button = Button(addCourse, text="Add Course", font="calibri 12 ", bg="#D3D3D3", command=lambda: add_course_function(
+                CRN_entry1.get(), title_entry1.get(), dept_entry1.get(), inst_entry1.get(), time_entry1.get(), day_entry1.get(), sem_entry1.get(), year_entry1.get(), cred_entry1.get()))
+            add_button.pack(padx=5, pady=20)
+        
+        def rmv_course_btn():
+            
+            def rmv_course_function(crn):
+                rmvCourse.destroy()
+            rmvCourse = Toplevel(self.admin)
+            rmvCourse.title("Remove Course")
+            rmvCourse.configure(bg="#D3D3D3")
+            app_width = 400
+            app_height = 200
+            screen_width = rmvCourse.winfo_screenwidth()
+            screen_height = rmvCourse.winfo_screenheight()
+            x = (screen_width / 2) - (app_width / 2)
+            y = (screen_height / 2 ) - (app_height / 2)
+            rmvCourse.geometry(f'{app_width}x{app_height}+{int(x)}+{int(y)}')
+
+            rmv_frame = LabelFrame(rmvCourse, text="Remove by CRN", font="calibri 12 ", bg="#D3D3D3")
+            rmv_frame.pack(padx=10, pady=10)
+
+            rmv_entry = Entry(rmv_frame, font="calibri")
+            rmv_entry.pack(padx=10, pady=10)
+
+            rmv_button = Button(rmvCourse, text="Remove Course", font="calibri 12 ", bg="#D3D3D3", command= lambda: rmv_course_function(rmv_entry.get()))
+            rmv_button.pack(padx=20, pady=10, side='bottom')
+        
         #Admin Function Window
         self.admin = Tk()
         self.admin.title("Admin")
         self.admin.configure(bg="#D3D3D3")
         app_width = 300
-        app_height = 250
+        app_height = 300
         screen_width = self.admin.winfo_screenwidth()
         screen_height = self.admin.winfo_screenheight()
         x = (screen_width / 2) - (app_width / 2)
@@ -1019,10 +1106,12 @@ class MainApp:
         #Admin function window widgets
         course_btn = Button(i_frame, text="Courses", font="calibri 12", command=course_button)
         course_btn.grid(row=0, column=0, padx=10, pady=10)
-        roster_btn = Button(i_frame, text="Roster", font="calibri 12", command=roster_button)
-        roster_btn.grid(row=0, column=1, padx=10, pady=10)
         user_btn = Button(i_frame, text="Users", font="calibri 12", command=user_button)
-        user_btn.grid(row=1, column=0, padx=10, pady=10)
+        user_btn.grid(row=0, column=1, padx=10, pady=10)
+        add_btn = Button(i_frame, text="Add Courses", font="calibri 12", command=add_course_btn)
+        add_btn.grid(row=1, column=0, padx=10, pady=10)
+        rmv_btn = Button(i_frame, text="Remove Courses", font="calibri 12", command=rmv_course_btn)
+        rmv_btn.grid(row=1, column=1, padx=10, pady=10)
         #Logout Button
         exit_btn = Button(self.admin, text = 'Logout', font="calibri 12 ", width=7, command = logout_button)
         exit_btn.pack(pady=10,side='bottom')
