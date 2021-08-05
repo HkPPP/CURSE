@@ -52,6 +52,9 @@ class MainApp:
         else:
             raise Exception
 
+
+
+
     def courses_page(self, utype):
         #course search window
         def courses_layout(frame):
@@ -205,6 +208,9 @@ class MainApp:
         course_table(style, list_frame, list_scroll, course_list)
 
         search_function("All", "All", course_list)
+
+
+
 
     def schedule_page(self,utype):
         
@@ -364,6 +370,9 @@ class MainApp:
         schedule_list = ttk.Treeview(list_frame, yscrollcommand=list_scroll.set, selectmode="extended")
         schedule_table(style, list_frame, list_scroll, schedule_list)
 
+
+
+
     def roster_page(self,utype):
         
         #roster window layout
@@ -476,7 +485,11 @@ class MainApp:
         roster_list = ttk.Treeview(list_frame, yscrollcommand=list_scroll.set, selectmode="extended")
         roster_table(style, list_frame, list_scroll, roster_list)
 
+
+
+
     def user_page(self, utype):
+        
         
         #student user window
         def stud_layout():
@@ -519,19 +532,25 @@ class MainApp:
                 stud_list.heading("Gradyear", text="Gradyear", anchor=CENTER)
                 stud_list.heading("Major", text="Major", anchor=CENTER)
                 stud_list.heading("Email", text="Email", anchor=CENTER)
+           
+            #reset list
+            def reset_list():
+                for student in stud_list.get_children():
+                    stud_list.delete(student)
+                records = self.user.getAllStudent()  
+                for i, record in enumerate(records):
+                    stud_list.insert(parent='', index='end', iid=i, text="", values=(record[0], record[1], record[2], record[3], record[4], record[5]))
             
-            #add student function
-            def add_Stud(id, name, surname, grad, major, email, ):
-                addStud.destroy()
-         
             #add student window
             def add_stud():
-
-                global addStud
+                #add student function
+                def add_Stud(name, surname, grad, major):
+                    addStud.destroy()
+                    self.user.addNewStudent(name, surname, grad, major)
                 addStud = Toplevel(s_frame)
                 addStud.title("Add Student")
                 addStud.configure(bg="#D3D3D3")
-                app_width = 850
+                app_width = 550
                 app_height = 400
                 screen_width = addStud.winfo_screenwidth()
                 screen_height = addStud.winfo_screenheight()
@@ -542,47 +561,36 @@ class MainApp:
                 addCourse_frame = LabelFrame(addStud, text="Student Information", font="calibri 12 ", bg="#D3D3D3")
                 addCourse_frame.pack(fill="x", expand="yes", padx=20, side='top')
 
-                id_txt = Label(addCourse_frame, text="ID", font="calibri 12 ", bg="#D3D3D3")
-                id_txt.grid(row=0, column=0, padx=5, pady=5)
-                id_entry= Entry(addCourse_frame, font="calibri")
-                id_entry.grid(row=0, column=1, padx=5, pady=5)
-
                 name_txt = Label(addCourse_frame, text="Name", font="calibri 12 ", bg="#D3D3D3")
-                name_txt.grid(row=1, column=0, padx=5, pady=5)
+                name_txt.grid(row=0, column=0, padx=5, pady=5)
                 name_entry = Entry(addCourse_frame, font="calibri")
-                name_entry.grid(row=1, column=1, padx=5, pady=5)
+                name_entry.grid(row=0, column=1, padx=5, pady=5)
 
                 surname_txt = Label(addCourse_frame, text="Surname", font="calibri 12 ", bg="#D3D3D3")
-                surname_txt.grid(row=2, column=0, padx=5, pady=5)
+                surname_txt.grid(row=0, column=2, padx=5, pady=5)
                 surname_entry = Entry(addCourse_frame, font="calibri")
-                surname_entry.grid(row=2, column=1, padx=5, pady=5)
+                surname_entry.grid(row=0, column=3, padx=5, pady=5)
 
                 grad_txt = Label(addCourse_frame, text="Gradyear", font="calibri 12 ", bg="#D3D3D3")
-                grad_txt.grid(row=0, column=2, padx=5, pady=5)
+                grad_txt.grid(row=1, column=0, padx=5, pady=5)
                 grad_entry = Entry(addCourse_frame, font="calibri")
-                grad_entry.grid(row=0, column=3, padx=5, pady=5)
+                grad_entry.grid(row=1, column=1, padx=5, pady=5)
 
                 major_txt = Label(addCourse_frame, text="Major", font="calibri 12 ", bg="#D3D3D3")
                 major_txt.grid(row=1, column=2, padx=5, pady=5)
                 major_entry = Entry(addCourse_frame, font="calibri")
                 major_entry.grid(row=1, column=3, padx=5, pady=5)
-
-                email_txt = Label(addCourse_frame, text="Email", font="calibri 12 ", bg="#D3D3D3")
-                email_txt.grid(row=2, column=2, padx=5, pady=5)
-                email_entry = Entry(addCourse_frame, font="calibri")
-                email_entry.grid(row=2, column=3, padx=5, pady=5)
                 
                 add_button = Button(addStud, text="Add Student", font="calibri 12 ", bg="#D3D3D3", command=lambda: add_Stud(
-                    id_entry.get(), name_entry.get(), surname_entry.get(), grad_entry.get(), major_entry.get(), email_entry.get()))
+                    name_entry.get(), surname_entry.get(), grad_entry.get(), major_entry.get()))
                 add_button.pack(padx=5, pady=20)
-                    
-            #remove student function
-            def rmv_Stud():
-                rmvStud.destroy()
             
             #remove student window
             def rmv_stud():
-                global rmvStud
+                #remove student function
+                def rmv_Stud(id):
+                    rmvStud.destroy()
+                    self.user.removeStudentByID(id)
                 rmvStud = Toplevel(s_frame)
                 rmvStud.title("Remove Student")
                 rmvStud.configure(bg="#D3D3D3")
@@ -600,7 +608,7 @@ class MainApp:
                 rmv_entry = Entry(rmv_frame, font="calibri")
                 rmv_entry.pack(padx=10, pady=10)
 
-                rmv_button = Button(rmvStud, text="Remove Student", font="calibri 12 ", bg="#D3D3D3", command = rmv_Stud)
+                rmv_button = Button(rmvStud, text="Remove Student", font="calibri 12 ", bg="#D3D3D3", command = lambda:rmv_Stud(rmv_entry.get()))
                 rmv_button.pack(padx=20, pady=20)
            
             #cmd menu
@@ -611,7 +619,9 @@ class MainApp:
                 c_menu.add_cascade(label="Commands", menu=cmd)
                 cmd.add_command(label="Add Student", command=add_stud)
                 cmd.add_command(label="Remove Student", command=rmv_stud)
-            
+                cmd.add_separator()
+                cmd.add_command(label="Reset List", command=reset_list)
+  
             global s_frame
             s_frame = Tk()
             s_frame.title("Student Users")
@@ -633,13 +643,23 @@ class MainApp:
             exit_btn = Button(s_frame, text = 'Exit', font="calibri 12 ", width=7, command = go_back)
             exit_btn.pack(pady=10,side='bottom')
 
-
             c_menu = Menu(s_frame)
             cmd_menu(c_menu)
- 
+
+            def populate_student_table():
+                for student in stud_list.get_children():
+                    stud_list.delete(student)
+            
+                records = self.user.getAllStudent()
+                   
+                for i, record in enumerate(records):
+                    stud_list.insert(parent='', index='end', iid=i, text="", values=(record[0], record[1], record[2], record[3], record[4], record[5]))
+            populate_student_table()
+
         #instructor user window
         def inst_layout():
             self.userP.withdraw()
+           
             #exit button function
             def go_back():
                 i_frame.withdraw()
@@ -681,14 +701,24 @@ class MainApp:
                 inst_list.heading("Dept", text="Deptartment", anchor=CENTER)
                 inst_list.heading("Email", text="Email", anchor=CENTER)
             
-            #add instructor function
-            def add_Inst(id, name, surname, title, hireyear, dept, email):
-                addInst.destroy()
+            #reset list
+            def reset_list():
+                for student in inst_list.get_children():
+                    inst_list.delete(student)
             
+                records = self.user.getAllInstructor()
+                   
+                for i, record in enumerate(records):
+                    inst_list.insert(parent='', index='end', iid=i, text="", values=(record[0], record[1], record[2], record[3], record[4], record[5], record[6]))
+           
             #add instructor window
             def add_inst():
-
-                global addInst
+                #add instructor function
+                def add_Inst(name, surname, hireyear, title, dept):
+                    print(title)
+                    addInst.destroy()
+                    self.user.addNewInstructor(name, surname, hireyear, title, dept)
+                
                 addInst = Toplevel(i_frame)
                 addInst.title("Add Instructor")
                 addInst.configure(bg="#D3D3D3")
@@ -703,47 +733,40 @@ class MainApp:
                 addInst_frame = LabelFrame(addInst, text="Instructor Information", font="calibri 12 ", bg="#D3D3D3")
                 addInst_frame.pack(fill="x", expand="yes", padx=20, side='top')
 
-                id_txt = Label(addInst_frame, text="ID", font="calibri 12 ", bg="#D3D3D3")
-                id_txt.grid(row=0, column=0, padx=5, pady=5)
-                id_entry= Entry(addInst_frame, font="calibri")
-                id_entry.grid(row=0, column=1, padx=5, pady=5)
-
                 name_txt = Label(addInst_frame, text="Name", font="calibri 12 ", bg="#D3D3D3")
-                name_txt.grid(row=1, column=0, padx=5, pady=5)
+                name_txt.grid(row=0, column=0, padx=5, pady=5)
                 name_entry = Entry(addInst_frame, font="calibri")
-                name_entry.grid(row=1, column=1, padx=5, pady=5)
+                name_entry.grid(row=0, column=1, padx=5, pady=5)
 
                 surname_txt = Label(addInst_frame, text="Surname", font="calibri 12 ", bg="#D3D3D3")
-                surname_txt.grid(row=2, column=0, padx=5, pady=5)
+                surname_txt.grid(row=0, column=2, padx=5, pady=5)
                 surname_entry = Entry(addInst_frame, font="calibri")
-                surname_entry.grid(row=2, column=1, padx=5, pady=5)
+                surname_entry.grid(row=0, column=3, padx=5, pady=5)
 
                 title_txt = Label(addInst_frame, text="Title", font="calibri 12 ", bg="#D3D3D3")
-                title_txt.grid(row=0, column=2, padx=5, pady=5)
+                title_txt.grid(row=0, column=4, padx=5, pady=5)
                 title_entry = Entry(addInst_frame, font="calibri")
-                title_entry.grid(row=0, column=3, padx=5, pady=5)
+                title_entry.grid(row=0, column=5, padx=5, pady=5)
 
                 year_txt = Label(addInst_frame, text="Hire Year", font="calibri 12 ", bg="#D3D3D3")
-                year_txt.grid(row=0, column=4, padx=5, pady=5)
+                year_txt.grid(row=1, column=0, padx=5, pady=5)
                 year_entry = Entry(addInst_frame, font="calibri")
-                year_entry.grid(row=0, column=5, padx=5, pady=5)
+                year_entry.grid(row=1, column=1, padx=5, pady=5)
 
                 dept_txt = Label(addInst_frame, text="Department", font="calibri 12 ", bg="#D3D3D3")
                 dept_txt.grid(row=1, column=2, padx=5, pady=5)
                 dept_entry = Entry(addInst_frame, font="calibri")
                 dept_entry.grid(row=1, column=3, padx=5, pady=5)
-
-                email_txt = Label(addInst_frame, text="Email", font="calibri 12 ", bg="#D3D3D3")
-                email_txt.grid(row=2, column=2, padx=5, pady=5)
-                email_entry = Entry(addInst_frame, font="calibri")
-                email_entry.grid(row=2, column=3, padx=5, pady=5)
                 
-                add_button = Button(addInst, text="Add Instructor", font="calibri 12 ", bg="#D3D3D3", command=lambda: add_Inst(id_entry.get(), name_entry.get(), surname_entry.get(), title_entry.get(), year_entry.get(), dept_entry.get(), email_entry.get()))
+                add_button = Button(addInst, text="Add Instructor", font="calibri 12 ", bg="#D3D3D3", command=lambda: add_Inst(
+                    name_entry.get(), surname_entry.get(), year_entry.get(), title_entry.get(), dept_entry.get()))
                 add_button.pack(padx=5, pady=20)
                       
-            #remove student window
+            #remove instructor window
             def rmv_inst():
-                global rmvInst
+                def rmv(id):
+                    rmvInst.destroy()
+                    remove = self.user.removeProfessorByID(id)
                 rmvInst = Toplevel(i_frame)
                 rmvInst.title("Remove Instructor")
                 rmvInst.configure(bg="#D3D3D3")
@@ -761,7 +784,7 @@ class MainApp:
                 rmv_entry = Entry(rmv_frame, font="calibri")
                 rmv_entry.pack(padx=10, pady=10)
 
-                rmv_button = Button(rmvInst, text="Remove Instructor", font="calibri 12 ", bg="#D3D3D3")
+                rmv_button = Button(rmvInst, text="Remove Instructor", font="calibri 12 ", bg="#D3D3D3", command=lambda: rmv(rmv_entry.get()))
                 rmv_button.pack(padx=20, pady=20)
            
             #cmd menu
@@ -772,6 +795,8 @@ class MainApp:
                 c_menu.add_cascade(label="Commands", menu=cmd)
                 cmd.add_command(label="Add Instructor", command=add_inst)
                 cmd.add_command(label="Remove Instructor", command=rmv_inst)
+                cmd.add_separator()
+                cmd.add_command(label="Reset List", command=reset_list)
 
             global i_frame
             i_frame = Tk()
@@ -790,16 +815,30 @@ class MainApp:
             list_scroll = Scrollbar(list_frame)
             inst_list = ttk.Treeview(list_frame, yscrollcommand=list_scroll.set, selectmode="extended")
             inst_table(style, list_frame, list_scroll, inst_list)
-          
+
             exit_btn = Button(i_frame, text = 'Exit', font="calibri 12 ", width=7, command = go_back)
             exit_btn.pack(pady=10,side='bottom')
 
-
             c_menu = Menu(i_frame)
             cmd_menu(c_menu)
+
+            def populate_instructor_table():
+                for student in inst_list.get_children():
+                    inst_list.delete(student)
             
+                records = self.user.getAllInstructor()
+                   
+                for i, record in enumerate(records):
+                    inst_list.insert(parent='', index='end', iid=i, text="", values=(record[0], record[1], record[2], record[3], record[4], record[5], record[6]))
+            populate_instructor_table()
+     
         #user list window
         def user_layout(u_frame):
+            #exit button function
+            def go_back():
+                self.userP.withdraw()
+                utype.deiconify()
+
             
             u_frame.title("Users")
             u_frame.configure(bg="#D3D3D3")
@@ -823,17 +862,13 @@ class MainApp:
             #Exit Button
             gb_btn = Button(u_frame, text = 'Go Back', font="calibri 12 ", width=7, command = go_back)
             gb_btn.pack(pady=10, side='bottom')
-
-        #exit button function
-        def go_back():
-            self.userP.withdraw()
-            s_frame.withdraw()
-            i_frame.withdraw()
-            utype.deiconify()
-
+        
         self.userP = Tk()
         user_layout(self.userP)
         
+
+
+
     def main_menu(self) -> None:
         # main Window dimensions
         ####################################################
@@ -873,6 +908,10 @@ class MainApp:
         exit_btn = Button(self.main, text = 'Exit', font="calibri 12 ", width=7, command = self.main.destroy)
         exit_btn.pack(pady=10, side='bottom')
         ####################################################
+
+
+
+
 
     def login_page(self, title) -> None:
         #Main window stays closed until exit button is pressed
@@ -939,6 +978,10 @@ class MainApp:
 
         login_layout()
 
+
+
+
+
     def student_page(self) -> None:
 
         def course_button():
@@ -981,7 +1024,10 @@ class MainApp:
         #Logout Button
         exit_btn = Button(self.student, text = 'Logout', font="calibri 12 ", width=7, command = logout_button)
         exit_btn.pack(pady=10,side='bottom')
-                    
+
+
+
+
     def admin_page(self) -> None:
        
         def course_button():
@@ -999,8 +1045,9 @@ class MainApp:
 
         def add_course_btn():
             
-            def add_course_function(crn, title, dept, inst, time, day, sem, year, cred):
+            def add_course_function(title, dept, inst, time, day, sem, year, cred):
                 addCourse.destroy()
+                self.user.addNewCourse(title, dept, inst, time, day, sem, year, cred)
     
             addCourse = Toplevel(self.admin)
             addCourse.title("Add Course")
@@ -1015,11 +1062,6 @@ class MainApp:
 
             addCourse_frame = LabelFrame(addCourse, text="Course Information", font="calibri 12 ", bg="#D3D3D3")
             addCourse_frame.pack(fill="x", expand="yes", padx=20, side='top')
-
-            crn_txt = Label(addCourse_frame, text="CRN", font="calibri 12 ", bg="#D3D3D3")
-            crn_txt.grid(row=0, column=0, padx=5, pady=5)
-            CRN_entry1 = Entry(addCourse_frame, font="calibri")
-            CRN_entry1.grid(row=0, column=1, padx=5, pady=5)
 
             title_txt = Label(addCourse_frame, text="Title", font="calibri 12 ", bg="#D3D3D3")
             title_txt.grid(row=1, column=0, padx=5, pady=5)
@@ -1062,13 +1104,14 @@ class MainApp:
             cred_entry1.grid(row=2, column=5, padx=5, pady=5)
 
             add_button = Button(addCourse, text="Add Course", font="calibri 12 ", bg="#D3D3D3", command=lambda: add_course_function(
-                CRN_entry1.get(), title_entry1.get(), dept_entry1.get(), inst_entry1.get(), time_entry1.get(), day_entry1.get(), sem_entry1.get(), year_entry1.get(), cred_entry1.get()))
+                title_entry1.get(), dept_entry1.get(), inst_entry1.get(), time_entry1.get(), day_entry1.get(), sem_entry1.get(), year_entry1.get(), cred_entry1.get()))
             add_button.pack(padx=5, pady=20)
         
         def rmv_course_btn():
             
             def rmv_course_function(crn):
                 rmvCourse.destroy()
+                self.user.removeCourseByCRN(crn)
             rmvCourse = Toplevel(self.admin)
             rmvCourse.title("Remove Course")
             rmvCourse.configure(bg="#D3D3D3")
@@ -1115,6 +1158,10 @@ class MainApp:
         #Logout Button
         exit_btn = Button(self.admin, text = 'Logout', font="calibri 12 ", width=7, command = logout_button)
         exit_btn.pack(pady=10,side='bottom')
+
+
+
+
 
     def instructor_page(self) -> None:
 

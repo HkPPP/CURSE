@@ -23,7 +23,7 @@ class admin(user):
 
         lastID = 30001 + int(self.sql.get_last_rowID("COURSE"))
         CRN = "000" + str(lastID)
-        value = f"'{CRN}', '{courseName}', '{department}', '{instructor}', {time}, '{semester}', '{day}', {year}, {credits}"
+        value = f"'{CRN}', '{courseName}', '{department}', '{instructor}', {time}, '{day}', '{semester}', {year}, {credits}"
         self.sql.insert_into_table_values("COURSE", value)
 
     def removeCourseByCRN(self,CRN)->None:
@@ -52,6 +52,7 @@ class admin(user):
         insID = f"{20001 + ins_count}"
         email = self.createNewEmail(first, last, "INSTRUCTOR")
         value = f"{insID}, '{first}', '{last}', '{title}', {hire_year}, '{dept}', '{email}'"
+        print(value)
         self.sql.insert_into_table_values("INSTRUCTOR", value)
 
     def removeStudentByID(self, id)->None:
@@ -97,10 +98,10 @@ class admin(user):
 
 
 
-def main():
-    # ad = admin("Barack","Obama","30001")
-    # ad.addNewStudent("Issac","Newton",1668,"BSAS")
-    pass
+# def main():
+#     ad = admin("Barack","Obama","30001")
+#     ad.addNewInstructor("Issac","Newton",1668,"Full Prof.")
+    
 
-if __name__=="__main__":
-    main()
+# if __name__=="__main__":
+#     main()
