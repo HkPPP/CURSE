@@ -160,7 +160,7 @@ class MainApp:
                 raise Exception(f"Unknown search type: {search_type}")
 
             for record in course_list.get_children():
-                        course_list.delete(record)
+                course_list.delete(record)
 
             for i, record in enumerate(records, start=0):
                 if i % 2 == 0:
