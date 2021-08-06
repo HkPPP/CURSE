@@ -24,7 +24,7 @@ class admin(user):
 
         lastID = 30001 + int(self.sql.get_last_rowID("COURSE"))
         CRN = "000" + str(lastID)
-        value = f"'{CRN}', '{courseName}', '{department}', '{instructor}', {time}, '{semester}', '{day}', {year}, {credits}"
+        value = f"'{CRN}', '{courseName}', '{department}', '{instructor}', {time}, '{day}', '{semester}', {year}, {credits}"
         self.sql.insert_into_table_values("COURSE", value)
 
     def removeCourseByCRN(self, CRN) -> None:
@@ -53,6 +53,7 @@ class admin(user):
         insID = f"{20001 + ins_count}"
         email = self.createNewEmail(first, last, "INSTRUCTOR")
         value = f"{insID}, '{first}', '{last}', '{title}', {hire_year}, '{dept}', '{email}'"
+        print(value)
         self.sql.insert_into_table_values("INSTRUCTOR", value)
 
     def removeStudentByID(self, id) -> None:
@@ -79,23 +80,25 @@ class admin(user):
         email = f"{last_and_first_init}{email_index}"
         return email
 
-    # TODO below
+    def unlinkStudentFromCourse(self, ID, CRN):
+        value = f"'{CRN}' AND StudentID = {ID}"
+        print(value)
+        self.sql.delete_from_table_where("ROSTER", "CRN", value)
 
-    def addStudentToCourse(self, id, CRNcode):
-        """Add Student ID along with Course ID to ROSTER table"""
+    def unlinkProfessorFromCourse(self, ID, CRN):
+        new_info = f"INSTRUCTOR = 00000"
+        condt = f"INSTRUCTOR = '{ID}' AND CRN = '{CRN}'"
+        self.sql.update_set_where("COURSE", new_info, condt)
 
-        print("Student " + id + " added to course " + CRNcode)
-
-    def removeStudentFromCourse(self, id, CRNcode):
-        """Remove the Student ID and CRN code from the Roster table"""
-
-        print("Student " + id + " removed from course " + CRNcode)
-
+    def linkProfessorToCourse(self, ID, CRN):
+        new_info = f"INSTRUCTOR = '{ID}'"
+        cond = f"INSTRUCTOR = 0 AND CRN = '{CRN}'"
+        self.sql.update_set_where("COURSE", new_info, cond)
 
 def main():
-    # ad = admin("Barack","Obama","30001")
-    # ad.addNewStudent("Issac","Newton",1668,"BSAS")
-    pass
+    ad = admin("Barack","Obama","30001")
+    #ad.unlinkProfessorFromCourse("31243", "00030005")
+    ad.linkProfessorToCourse("20005", "00030005")
 
 
 if __name__ == "__main__":
