@@ -5,7 +5,7 @@ import sqlite3
 class sql_functions:
     """This class is used for executing SQL queries using Python."""
 
-    def __init__(self, path="schooldatabase.db") -> None:
+    def __init__(self, path="CURSEBackEnd/schooldatabase.db") -> None:
         """Connect to database and create a cursor."""
 
         self.__database = path 
@@ -96,10 +96,33 @@ class sql_functions:
         self.result = self.cur.fetchall()
         return self.result
 
+    def update_set_where(self, table, newInfo, condition):
+        """UPDATE [table] SET [newInfo] WHERE [condition]
+        
+        Ex:
+        UPDATE PlayerMain SET Last = 'Doe', First = 'John' WHERE ID = '12345'
+        
+        table = "PlayerMain"
+        
+        newInfo = "Last = 'Doe', First = 'John'"
+        
+        condition = "ID = '12345'"
+        """
+        self.command = f"UPDATE {table} SET {newInfo} WHERE {condition};"
+        self.exec_and_commit(self.command)
 
 
 
 
+
+def main():
+    # a = sql_functions()
+    # i = a.get_partial_matches("STUDENT", "EMAIL", "EMAIL", "'johnh%'")
+    # print(len(i))
+    pass
+
+if __name__=="__main__":
+    main()
 
 
 
