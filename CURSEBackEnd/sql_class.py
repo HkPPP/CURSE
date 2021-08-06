@@ -5,7 +5,7 @@ import sqlite3
 class sql_functions:
     """This class is used for executing SQL queries using Python."""
 
-    def __init__(self, path="schooldatabase.db") -> None:
+    def __init__(self, path="CURSEBackEnd/schooldatabase.db") -> None:
         """Connect to database and create a cursor."""
 
         self.__database = path 
@@ -108,7 +108,7 @@ class sql_functions:
         
         condition = "ID = '12345'"
         """
-        self.command = f"UPDATE {table} SET {newInfo} WHERE {condition}"
+        self.command = f"UPDATE {table} SET {newInfo} WHERE {condition};"
         self.exec_and_commit(self.command)
 
 
