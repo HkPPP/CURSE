@@ -50,7 +50,7 @@ class user:
 
     @staticmethod
     def single_quote_around_str(string):
-        return f"\'{string}\'"
+        return f"'{string}'"
 
 
 

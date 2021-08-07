@@ -27,6 +27,7 @@ class userLogin():
     # For GUI
     def logIn(self, utype, ID, email):
         """Fill out credentials and return True if ID and last name are found in DB. Otherwise, return False"""
+        
         ID = self.single_quote_around_str(ID)
         query_result = self.sql.select_from_where(utype, 'ID, SURNAME, NAME, EMAIL', 'ID', ID)
         

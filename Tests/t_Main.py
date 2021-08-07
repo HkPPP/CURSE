@@ -1,8 +1,8 @@
-from admin import admin
-from instructor import instructor
-from student import student
-from sql_class import sql_functions
-from userLogin import userLogin
+# from admin import admin
+# from instructor import instructor
+# from student import student
+# from sql_class import sql_functions
+# from userLogin import userLogin
 
 def main():
     login = userLogin()
