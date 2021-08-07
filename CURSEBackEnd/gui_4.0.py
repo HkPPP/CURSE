@@ -1,3 +1,6 @@
+#Design and development of GUI was done by Kevin Huang.
+#Integration of sql functions as well as user classes into GUI was done by Hank Pham.
+
 from tkinter import *
 from tkinter import ttk
 
